@@ -1,0 +1,5 @@
+config.js
+*.cache.json
+.idea/
+node_modules/
+.vscode/
