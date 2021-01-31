@@ -3,11 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GitHub Repo Status</title>
+    <title>GitHub Repo Stats</title>
 
+    <link rel="stylesheet" href="gen/app.css">
     <script src="chart.min.js"></script>
+    <script src="chartjs-adapter-date-fns.bundle.min.js"></script>
+    <script src="gen/chart-data.js"></script>
 </head>
 <body>
+
+<div class="block h-36 relative w-full" style="height: 400px;">
+    <canvas id="issues-all-time" width="400" height="400"></canvas>
+</div>
+<script>
+    const issuesAllTime = document.getElementById('issues-all-time').getContext('2d');
+    new Chart(issuesAllTime, {
+        type: 'bar',
+        data: {
+            datasets: [
+                {label: 'opened', data: window.chart_data.issues_opened_by_month, backgroundColor: 'rgba(0, 150, 0, 0.2)', borderColor: 'rgba(0, 150, 0, 0.8)', borderWidth: 1},
+                {label: 'closed', data: window.chart_data.issues_closed_by_month, backgroundColor: 'rgba(150, 0, 0, 0.2)', borderColor: 'rgba(150, 0, 0, 0.8)', borderWidth: 1},
+            ]
+        },
+        options: {
+            maintainAspectRatio: false,
+            scales: {
+                x: {
+                    type: 'time',
+                    time: {
+                        unit: 'quarter'
+                    }
+                }
+            }
+        }
+    });
+</script>
+
+
+<div class="block h-36 relative w-full" style="height: 400px;">
+    <canvas id="issues-over-time" width="400" height="400"></canvas>
+</div>
+
+
+<script>
+    const issuesOverTime = document.getElementById('issues-over-time').getContext('2d');
+    new Chart(issuesOverTime, {
+        type: 'line',
+        data: {
+            datasets: [
+                {label: 'Open Issues', data: window.chart_data.issues_opened_by_month_cumulative, backgroundColor: 'rgba(0, 0, 150, 0.2)', borderColor: 'rgba(0, 0, 150, 0.8)', borderWidth: 1, fill: 'start', tension: 0.3},
+            ]
+        },
+        options: {
+            maintainAspectRatio: false,
+            scales: {
+                x: {
+                    type: 'time',
+                    time: {
+                        unit: 'quarter'
+                    }
+                }
+            }
+        }
+    });
+</script>
     
 </body>
 </html>

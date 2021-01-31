@@ -9,7 +9,8 @@
 	"scripts": {
 		"dev": "tailwindcss-cli build ./css/app.css -o ./public/gen/app.css",
 		"livereload": "livereload ./css ./public/index.html -w 200",
-		"build": "cross-env NODE_ENV=production tailwindcss-cli build ./css/app.css -o ./public/gen/app.css"
+		"build": "cross-env NODE_ENV=production tailwindcss-cli build ./css/app.css -o ./public/gen/app.css",
+		"serve": "php -S localhost:8080 -t public"
 	},
 	"devDependencies": {
 		"cross-env": "^7.0.3",
