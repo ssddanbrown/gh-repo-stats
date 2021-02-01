@@ -12,61 +12,37 @@
 </head>
 <body>
 
-<div class="block h-36 relative w-full" style="height: 400px;">
-    <canvas id="issues-all-time" width="400" height="400"></canvas>
+<div class="px-4">
+    <h2 class="text-2xl font-bold px-3 mt-4">Issues Opened/Closed All Time</h2>
+    <div class="block h-36 relative w-full" style="height: 400px;">
+        <canvas id="issues-all-time" width="400" height="400"></canvas>
+    </div>
 </div>
-<script>
-    const issuesAllTime = document.getElementById('issues-all-time').getContext('2d');
-    new Chart(issuesAllTime, {
-        type: 'bar',
-        data: {
-            datasets: [
-                {label: 'opened', data: window.chart_data.issues_opened_by_month, backgroundColor: 'rgba(0, 150, 0, 0.2)', borderColor: 'rgba(0, 150, 0, 0.8)', borderWidth: 1},
-                {label: 'closed', data: window.chart_data.issues_closed_by_month, backgroundColor: 'rgba(150, 0, 0, 0.2)', borderColor: 'rgba(150, 0, 0, 0.8)', borderWidth: 1},
-            ]
-        },
-        options: {
-            maintainAspectRatio: false,
-            scales: {
-                x: {
-                    type: 'time',
-                    time: {
-                        unit: 'quarter'
-                    }
-                }
-            }
-        }
-    });
-</script>
 
-
-<div class="block h-36 relative w-full" style="height: 400px;">
-    <canvas id="issues-over-time" width="400" height="400"></canvas>
+<div class="px-4">
+    <h2 class="text-2xl font-bold px-3 mt-4">Open Issues All Time</h2>
+    <div class="block h-36 relative w-full" style="height: 400px;">
+        <canvas id="issues-over-time" width="400" height="400"></canvas>
+    </div>
 </div>
 
 
-<script>
-    const issuesOverTime = document.getElementById('issues-over-time').getContext('2d');
-    new Chart(issuesOverTime, {
-        type: 'line',
-        data: {
-            datasets: [
-                {label: 'Open Issues', data: window.chart_data.issues_opened_by_month_cumulative, backgroundColor: 'rgba(0, 0, 150, 0.2)', borderColor: 'rgba(0, 0, 150, 0.8)', borderWidth: 1, fill: 'start', tension: 0.3},
-            ]
-        },
-        options: {
-            maintainAspectRatio: false,
-            scales: {
-                x: {
-                    type: 'time',
-                    time: {
-                        unit: 'quarter'
-                    }
-                }
-            }
-        }
-    });
-</script>
-    
+<div class="flex">
+    <div class="w-1/2 px-4">
+        <h2 class="text-2xl font-bold px-3 mt-4">Recent Issue Open/Close Rate</h2>
+        <div class="block h-36 relative w-full" style="height: 400px;">
+            <canvas id="recent-issue-open-close" width="400" height="400"></canvas>
+        </div>
+    </div>
+    <div class="w-1/2 px-4">
+        <h2 class="text-2xl font-bold px-3 mt-4">Recent PR Open/Close Rate</h2>
+        <div class="block h-36 relative w-full" style="height: 400px;">
+            <canvas id="recent-pr-open-close" width="400" height="400"></canvas>
+        </div>
+    </div>
+</div>
+
+
+<script src="charts.js" async></script>
 </body>
 </html>

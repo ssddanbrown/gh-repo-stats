@@ -2,6 +2,8 @@ const fs = require('fs').promises;
 const path = require('path');
 const fetchIssues = require('./fetch-issues');
 
+const recentIssuesCount = require('./reports/recent-issues-count');
+
 /**
  * Array of reporter functions.
  * These take an array of issues and return report data.
@@ -11,6 +13,14 @@ const reports = {
     issues_opened_by_month_cumulative: require('./reports/issues-opened-by-month-cumulative'),
     issues_opened_by_month: require('./reports/issues-opened-by-month'),
     issues_closed_by_month: require('./reports/issues-closed-by-month'),
+    issues_created_30_days: recentIssuesCount(30, 'created_at', false),
+    issues_created_90_days: recentIssuesCount(90, 'created_at', false),
+    issues_closed_30_days: recentIssuesCount(30, 'closed_at', false),
+    issues_closed_90_days: recentIssuesCount(90, 'closed_at', false),
+    prs_created_30_days: recentIssuesCount(30, 'created_at', true),
+    prs_created_90_days: recentIssuesCount(90, 'created_at', true),
+    prs_closed_30_days: recentIssuesCount(30, 'closed_at', true),
+    prs_closed_90_days: recentIssuesCount(90, 'closed_at', true),
 };
 
 module.exports = async function generate() {

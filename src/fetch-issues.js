@@ -3,6 +3,7 @@ const path = require('path');
 
 const config = require ('../config');
 const { Octokit } = require("@octokit/rest");
+const isDev = (process.env.NODE_ENV || '').startsWith('dev');
 
 module.exports = async function fetchIssues() {
     const issues = await getAllIssues();
@@ -25,7 +26,7 @@ function cleanIssue(issue) {
 
 async function getAllIssues() {
     const cache = path.join(__dirname, '../cache/', 'issues.cache.json');
-    if (fs.existsSync(cache)) {
+    if (isDev && fs.existsSync(cache)) {
         const data = fs.readFileSync(cache, 'utf8');
         return JSON.parse(data);
     }
@@ -41,8 +42,9 @@ async function getAllIssues() {
         state: 'all',
     });
 
-    // TODO - Ignore for actual use
-    fs.writeFileSync(cache, JSON.stringify(issues, null, 2), 'utf8');
+    if (isDev) {
+        fs.writeFileSync(cache, JSON.stringify(issues, null, 2), 'utf8');
+    }
 
     return issues;
 }
