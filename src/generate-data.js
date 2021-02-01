@@ -1,6 +1,6 @@
 const fs = require('fs').promises;
 const path = require('path');
-const fetchIssues = require('./fetch-issues');
+const fetchData = require('./fetch-data');
 
 const recentIssuesCount = require('./reports/recent-issues-count');
 
@@ -9,7 +9,7 @@ const recentIssuesCount = require('./reports/recent-issues-count');
  * These take an array of issues and return report data.
  * @type {Object<String, Function>}
  */
-const reports = {
+const issue_reports = {
     issues_opened_by_month_cumulative: require('./reports/issues-opened-by-month-cumulative'),
     issues_opened_by_month: require('./reports/issues-opened-by-month'),
     issues_closed_by_month: require('./reports/issues-closed-by-month'),
@@ -23,15 +23,39 @@ const reports = {
     prs_closed_90_days: recentIssuesCount(90, 'closed_at', true),
 };
 
-module.exports = async function generate() {
-    const issues = await fetchIssues();
-    await writeToGen('issues', issues);
+/**
+ * Array of reporter functions.
+ * These take an array of stars and return report data.
+ * @type {Object<String, Function>}
+ */
+const star_reports = {
+    stars_by_month: require('./reports/stars-by-month'),
+    stars_by_month_cumulative: require('./reports/stars-by-month-cumulative'),
+};
 
+module.exports = async function generate() {
+    const issues = await fetchData.issues();
+    const issueChartData = runReportsOnData(issue_reports, issues);
+
+    const stars = await fetchData.stars();
+    const starChartData = runReportsOnData(star_reports, stars);
+
+    const chartData = Object.assign({}, issueChartData, starChartData);
+    await writeToGen('chart-data', chartData);
+}
+
+/**
+ * Run the given reports on the given dataset.
+ * @param {Object<String, function(Array)>} reports
+ * @param {Array} data
+ * @return Object
+ */
+function runReportsOnData(reports, data) {
     const output = {};
     for (const [name, reportFunc] of Object.entries(reports)) {
-        output[name] = reportFunc(issues);
+        output[name] = reportFunc(data);
     }
-    await writeToGen('chart-data', output);
+    return output;
 }
 
 /**

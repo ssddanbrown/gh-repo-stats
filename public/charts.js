@@ -79,3 +79,30 @@ new Chart(contextFor('recent-pr-open-close'), {
         maintainAspectRatio: false,
     }
 });
+
+
+new Chart(contextFor('new-stars-by-month'), {
+    type: 'line',
+    data: {
+        datasets: [
+            {label: 'Stars', data: window.chart_data.stars_by_month, backgroundColor: 'rgba(0, 0, 150, 0.2)', borderColor: 'rgba(0, 0, 150, 0.8)', borderWidth: 1, fill: 'start', tension: 0.3},
+        ]
+    },
+    options: {
+        maintainAspectRatio: false,
+        scales: timeScales,
+    }
+});
+
+new Chart(contextFor('star-growth'), {
+    type: 'line',
+    data: {
+        datasets: [
+            {label: 'Stars', data: window.chart_data.stars_by_month_cumulative, backgroundColor: 'rgba(0, 0, 150, 0.2)', borderColor: 'rgba(0, 0, 150, 0.8)', borderWidth: 1, fill: 'start', tension: 0.3},
+        ]
+    },
+    options: {
+        maintainAspectRatio: false,
+        scales: timeScales,
+    }
+});
