@@ -14,12 +14,12 @@
 	},
 	"devDependencies": {
 		"cross-env": "^7.0.3",
-		"livereload": "^0.9.1",
-		"postcss-import": "^14.0.0",
-		"tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.0.2",
+		"livereload": "^0.9.3",
+		"postcss-import": "^14.0.2",
+		"tailwindcss": "^2.1.4",
 		"tailwindcss-cli": "^0.1.2"
 	},
 	"dependencies": {
-		"@octokit/rest": "^18.0.15"
+		"@octokit/rest": "^18.5.6"
 	}
 }
