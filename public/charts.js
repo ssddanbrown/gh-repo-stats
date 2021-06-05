@@ -7,8 +7,9 @@ const timeScales = {
     x: {
         type: 'time',
         time: {
-            unit: 'quarter'
-        }
+            unit: 'quarter',
+            tooltipFormat: 'yyyy-MM',
+        },
     }
 };
 
@@ -16,13 +17,14 @@ new Chart(contextFor('issues-all-time'), {
     type: 'bar',
     data: {
         datasets: [
-            {label: 'opened', data: window.chart_data.issues_opened_by_month, backgroundColor: 'rgba(0, 150, 0, 0.2)', borderColor: 'rgba(0, 150, 0, 0.8)', borderWidth: 1},
-            {label: 'closed', data: window.chart_data.issues_closed_by_month, backgroundColor: 'rgba(150, 0, 0, 0.2)', borderColor: 'rgba(150, 0, 0, 0.8)', borderWidth: 1},
+            {label: 'Opened', data: window.chart_data.issues_opened_by_month, backgroundColor: 'rgba(0, 150, 0, 0.2)', borderColor: 'rgba(0, 150, 0, 0.8)', borderWidth: 1},
+            {label: 'Closed', data: window.chart_data.issues_closed_by_month, backgroundColor: 'rgba(150, 0, 0, 0.2)', borderColor: 'rgba(150, 0, 0, 0.8)', borderWidth: 1},
         ]
     },
     options: {
         maintainAspectRatio: false,
         scales: timeScales,
+        animation: false,
     }
 });
 
@@ -36,6 +38,7 @@ new Chart(contextFor('issues-over-time'), {
     options: {
         maintainAspectRatio: false,
         scales: timeScales,
+        animation: false,
     }
 });
 
@@ -57,6 +60,7 @@ new Chart(contextFor('recent-issue-open-close'), {
     },
     options: {
         maintainAspectRatio: false,
+        animation: false,
     }
 });
 
@@ -77,6 +81,7 @@ new Chart(contextFor('recent-pr-open-close'), {
     },
     options: {
         maintainAspectRatio: false,
+        animation: false,
     }
 });
 
@@ -91,6 +96,7 @@ new Chart(contextFor('new-stars-by-month'), {
     options: {
         maintainAspectRatio: false,
         scales: timeScales,
+        animation: false,
     }
 });
 
@@ -104,5 +110,6 @@ new Chart(contextFor('star-growth'), {
     options: {
         maintainAspectRatio: false,
         scales: timeScales,
+        animation: false,
     }
 });

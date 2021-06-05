@@ -9,6 +9,6 @@ module.exports = function(issues) {
             };
         });
 
-    return util.sumYOnSameX(points).sort(util.xSorter);
+    return util.fillMonthGaps(util.sumYOnSameX(points).sort(util.xSorter));
 };
 

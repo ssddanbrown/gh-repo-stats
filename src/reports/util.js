@@ -39,7 +39,7 @@ function xSorter(a, b) {
 
 /**
  * Accumulate the Y values, Data must be pre-sorted
- * @param {{x: String, y: Number}}data
+ * @param {{x: String, y: Number}[]} data
  */
 function accumulateY(data) {
     let lastY = 0;
@@ -49,9 +49,29 @@ function accumulateY(data) {
     });
 }
 
+/**
+ * Fill any x month-string gaps in the dataset
+ * to ensure a point exists on each month, Data must be pre-sorted
+ * @param {{x: String, y: Number}[]} data
+ */
+function fillMonthGaps(data) {
+    data = Array.from(data);
+    const startDate = new Date(data[0].x);
+    for (let i = 0; i < data.length; i++) {
+        const expectedDate = new Date(startDate.valueOf());
+        expectedDate.setMonth(expectedDate.getMonth() + i);
+        const expectedDateString = expectedDate.toISOString().split('T')[0];
+        if (data[i].x !== expectedDateString) {
+            data.splice(i, 0, {x: expectedDateString, y: 0});
+        }
+    }
+    return data;
+}
+
 module.exports = {
     sumYOnSameX,
     xSorter,
     timestampToMonth,
     accumulateY,
+    fillMonthGaps,
 }
