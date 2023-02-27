@@ -56,6 +56,10 @@ function accumulateY(data) {
  */
 function fillMonthGaps(data) {
     data = Array.from(data);
+    if (data.length === 0) {
+        return [];
+    }
+
     const startDate = new Date(data[0].x);
     for (let i = 0; i < data.length; i++) {
         const expectedDate = new Date(startDate.valueOf());
